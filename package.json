@@ -1,0 +1,20 @@
+{
+  "name": "client-service",
+  "version": "1.9.9",
+  "description": "Part of project required to realize M.Sc. thesis.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "child_process": "^1.0.2",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test.js",
+    "start": "node server.js"
+  },
+  "author": "Cezary Pietruszyński",
+  "license": "ISC"
+}

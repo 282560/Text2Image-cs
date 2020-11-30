@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="pl-PL">
+    <head>
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+
+        <link rel="icon" type="image/png" href="images/favicon.png"/>
+        <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+        <title>Text2Image</title>
+    </head>
+
+    <body>
+        <div class="body-content">
+            <h1>Konwersja tekstu na obraz o wymiarach 64x64</h1>
+            <form action="/generator" method="get" id="confirm" name="confirm">
+                <p>Wybierz jedną pełną kategorię:</p>
+                <label>
+                    <input type="radio" id="flowers" name="category" value="flowers" onclick="set_flowers()">
+                    <img src="images/flowers.png" alt="Kwiaty" width="64" height="64">
+                </label>
+                <label>
+                    <input type="radio" id="birds" name="category" value="birds" onclick="set_birds()">
+                    <img src="images/birds_weak.png" alt="Ptaki" width="64" height="64">
+                </label>
+
+                <p>Lub jedną z trzyklasowych kategorii:</p>
+
+                <label>
+                    <input type="radio" id="three_flowers" name="category" value="three_flowers" onclick="set_three_flowers()">
+                    <img src="images/three_flowers.png" alt="Kwiaty (3)" width="64" height="64">
+                </label>
+                <label>
+                    <input type="radio" id="three_birds" name="category" value="three_birds" onclick="set_three_birds()">
+                    <img src="images/three_birds_weak.png" alt="Ptaki (3)" width="64" height="64">
+                </label>
+                <label>
+                    <input type="radio" id="three_fruits" name="category" value="three_fruits" onclick="set_three_fruits()">
+                    <img src="images/three_fruits.png" alt="Owoce (3)" width="64" height="64">
+                </label>
+
+                <p id="cat"></p>
+
+                <p>Wprowadź opis:</p>
+                <textarea id="desc" name="desc" rows="4" cols="50" maxlength="400" required></textarea>
+
+                <p>
+                    <label class="container">
+                        Po angielsku
+                        <input type="checkbox" id="lang" name="lang" value="en" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                </p>
+
+                <% if (typeof image_name == 'undefined') { %>
+                <input type="submit" id="generate" name="generate" onclick="set_waiting()">
+                <% } %>
+            </form>
+
+            <p id="waiting_info"></p>
+
+            <% if (typeof image_name != 'undefined') { %>
+            <p>Twój obraz:</p>
+            <p><img class="user-image" src="clients_images/<%=image_name%>" alt="Twój obraz"></p>
+            <p>Obraz zostanie usunięty z serwera po 90 sekundach od wygenerowania!</p>
+            <form action="/" method="get">
+                <input type="submit" onclick="go_back()" value="Wstecz">
+            </form>
+            <% } %>
+        </div>
+
+        <script>
+            const chosen = 'Wybrano: ';
+
+            function set_flowers() {
+                let lbl = document.getElementById('cat');
+                lbl.innerText = chosen + 'kwiaty';
+
+                $('#desc').prop('placeholder', 'np. this flower has white petals with jagged edges, growing around a large yellow oval pistil.');
+            }
+
+            function set_birds() {
+                let lbl = document.getElementById('cat');
+                lbl.innerText = chosen + 'ptaki';
+
+                $('#desc').prop('placeholder', 'np. this bird has a brown crown, brown primaries and a white belly.');
+            }
+
+            function set_three_flowers() {
+                let lbl = document.getElementById('cat');
+                lbl.innerText = chosen + 'kwiaty (3)';
+
+                $('#desc').prop('placeholder', 'np. flower with red round petals and large black center.');
+            }
+
+            function set_three_birds() {
+                let lbl = document.getElementById('cat');
+                lbl.innerText = chosen + 'ptaki (3)';
+
+                $('#desc').prop('placeholder', 'np. this bird has dark brown back.');
+            }
+
+            function set_three_fruits() {
+                let lbl = document.getElementById('cat');
+                lbl.innerText = chosen + 'owoce (3)';
+
+                $('#desc').prop('placeholder', 'np. this fruit is red and has green hat.');
+            }
+
+            function set_waiting() {
+                if ($.trim($('#desc').val()) != "") {
+                    // $('#generate').prop('value', 'Proszę czekać...');
+
+                    let lbl = document.getElementById('waiting_info');
+                    lbl.innerText = 'Cierpliwości - obraz może się generować nawet kilka sekund!';
+                }
+            }
+
+            function go_back() {
+                window.location.href = 'http://127.0.0.1:3000';
+            }
+
+            $(document).ready(function () {
+                $('#flowers').prop('checked', 'checked');
+                set_flowers();
+
+                $('#generate').prop('value', 'Generuj obraz!');
+
+                let lbl = document.getElementById('waiting_info');
+                lbl.innerText = '';
+            });
+
+            $(document).ready(function ($) {
+                $('#confirm').on('submit', function (evt) {
+                    $('#generate').hide();
+                });
+            });
+
+            jQuery(document).ready(function ($) {
+
+                if (window.history && window.history.pushState) {
+
+                    $(window).on('popstate', function () {
+                        var hashLocation = location.hash;
+                        var hashSplit = hashLocation.split("#!/");
+                        var hashName = hashSplit[1];
+
+                        if (hashName !== '') {
+                            var hash = window.location.hash;
+                            if (hash === '') {
+                                window.location.href = 'http://127.0.0.1:3000';
+                            }
+                        }
+                    });
+
+                    window.history.pushState('forward', null, './#main');
+                }
+
+            });
+        </script>
+
+    </body>
+
+</html>

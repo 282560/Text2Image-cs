@@ -1,0 +1,150 @@
+body {
+    /* background: linear-gradient(-90deg, #E8E9F3, #A6A6A8, #B1E5F2, #272635);
+    background-size: 200% 1%;
+    animation: gradient 10s ease infinite; */
+    background-image: url(background.jpg);
+    background-attachment: fixed;
+    text-align: center;
+    font-family: "Impact", Charcoal, sans-serif;
+}
+
+/* https://codepen.io/P1N2O/pen/pyBNzX */
+
+.body-content {
+    max-width: 500px;
+    margin: auto;
+    background: transparent;
+    padding: 10px;
+    background-image: linear-gradient(to bottom right, #006442, #5B8930);
+    box-shadow: 3px 3px 10px 3px #111111;
+}
+
+.user-image {
+  background-color: #333333;
+  border: 5px solid #333333;
+}
+
+input {
+  padding: 10px;
+  background-color: transparent;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  border-color: white;
+  border-style: solid;
+  display: inline-block;
+  font-size: 16px;
+  font-family: "Impact", Charcoal, sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button {
+    padding: 10px;
+    background-color: transparent;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    border-color: white;
+    border-style: solid;
+    display: inline-block;
+    font-size: 16px;
+    font-family: "Impact", Charcoal, sans-serif;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+textarea {
+  resize: none;
+  padding: 10px;
+  background-color: #333333;
+  border: none;
+  color: white;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  font-family: "Courier New", Courier, monospace;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+@keyframes gradient {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type=radio] + img {
+  cursor: pointer;
+}
+
+[type=radio]:checked + img {
+  outline: 2px solid #FFFFFF;
+}
+
+.container {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #333333;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: white;
+}
+
+.container input:checked ~ .checkmark {
+    background-color: #333333;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
